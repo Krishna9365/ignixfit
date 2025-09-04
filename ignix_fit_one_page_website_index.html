@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IgnixFit – Ignite Your Fitness</title>
+  <meta name="description" content="IgnixFit: Sustainable fitness coaching, nutrition guidance, and transformation plans." />
+  <meta property="og:title" content="IgnixFit – Ignite Your Fitness" />
+  <meta property="og:description" content="Sustainable fitness coaching, nutrition guidance, and transformation plans." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ignixfit.xyz/" />
+  <meta name="theme-color" content="#0ea5e9" />
+  <link rel="icon" href="favicon.ico" />
+  <style>
+    :root{
+      --bg: #0b0f17;
+      --panel: #121826;
+      --muted: #8ea0b5;
+      --text: #e6edf6;
+      --accent: #0ea5e9; /* cyan */
+      --accent-2: #22c55e; /* green */
+      --danger: #ef4444; /* red */
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"}
+    a{color:inherit;text-decoration:none}
+    .container{width:min(1120px, 92vw);margin-inline:auto}
+    .btn{display:inline-block;padding:.85rem 1.1rem;border-radius:999px;font-weight:600;border:1px solid transparent;transition:.2s;box-shadow:0 4px 18px rgba(14,165,233,.25)}
+    .btn.primary{background:var(--accent);color:#001018}
+    .btn.primary:hover{transform:translateY(-1px);box-shadow:0 8px 30px rgba(14,165,233,.35)}
+    .btn.ghost{border-color:#2c3950;background:transparent}
+    .btn.ghost:hover{background:#1a2232}
+
+    /* Header */
+    header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg, rgba(11,15,23,.9), rgba(11,15,23,.65) 60%, transparent);backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid rgba(255,255,255,.05)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:.8rem 0}
+    .brand{display:flex;gap:.6rem;align-items:center}
+    .logo{display:grid;place-items:center;width:36px;height:36px;border-radius:12px;background:conic-gradient(from 210deg,var(--accent),#6ee7b7,#93c5fd,#a78bfa,var(--accent));box-shadow:var(--shadow)}
+    .brand h1{font-size:1.05rem;margin:0;letter-spacing:.4px}
+    nav ul{display:flex;gap:1rem;list-style:none;padding:0;margin:0}
+    nav a{opacity:.85}
+    nav a:hover{opacity:1}
+    .menu-btn{display:none}
+
+    /* Hero */
+    .hero{position:relative;overflow:hidden}
+    .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:center;padding:5.5rem 0 4rem}
+    .hero h2{font-size:clamp(2rem, 4.5vw, 3.2rem);line-height:1.15;margin:.4rem 0}
+    .lead{color:var(--muted);max-width:50ch}
+    .hero-card{background:linear-gradient(180deg,#121826,#0f1522);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:1.25rem;box-shadow:var(--shadow)}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:1rem}
+    .stat{background:#0f1522;border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:.9rem;text-align:center}
+    .stat b{display:block;font-size:1.1rem}
+
+    /* Sections */
+    section{padding:3.5rem 0}
+    .section-title{font-size:1.6rem;margin:0 0 .8rem}
+    .muted{color:var(--muted)}
+
+    /* Cards grid */
+    .grid{display:grid;gap:1rem}
+    .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    .grid.cols-2{grid-template-columns:repeat(2,1fr)}
+    .card{background:var(--panel);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:1.1rem;box-shadow:var(--shadow)}
+    .price{font-size:1.4rem;font-weight:800}
+    .pill{display:inline-block;padding:.2rem .6rem;border-radius:999px;background:#0f1a2a;border:1px solid rgba(255,255,255,.06);font-size:.8rem;color:#a2b6cf}
+
+    /* FAQ */
+    details{border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:.85rem;background:#0f1522}
+    details+details{margin-top:.6rem}
+    summary{cursor:pointer;font-weight:600}
+
+    /* Footer */
+    footer{border-top:1px solid rgba(255,255,255,.06);padding:2rem 0;color:#9db1c9}
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero .wrap{grid-template-columns:1fr}
+      .grid.cols-3{grid-template-columns:1fr}
+      .grid.cols-2{grid-template-columns:1fr}
+      nav ul{position:fixed;inset:60px 14px auto 14px;background:#0f1522;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1rem;flex-direction:column;display:none}
+      .menu-btn{display:inline-flex;gap:.6rem;align-items:center;border:1px solid rgba(255,255,255,.12);background:#121826;padding:.5rem .7rem;border-radius:12px}
+      .menu-btn[aria-expanded="true"] + ul{display:flex}
+    }
+
+    /* Small helpers */
+    .row{display:flex;gap:.9rem;flex-wrap:wrap;align-items:center}
+    .center{text-align:center}
+    .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);margin:1.4rem 0}
+    .hint{font-size:.9rem;color:#a5b8ce}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <h1>IgnixFit</h1>
+      </div>
+      <nav>
+        <button class="menu-btn" aria-expanded="false" aria-controls="menu">☰ Menu</button>
+        <ul id="menu">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#programs">Programs</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="container wrap">
+      <div>
+        <span class="pill">Sustainable Coaching • Nutrition • Habits</span>
+        <h2>Ignite your fitness—<br/>and keep it for life.</h2>
+        <p class="lead">Evidence‑based training and simple nutrition for real transformations. Personalized plans, weekly accountability, and clear guidance—online or hybrid.</p>
+        <div class="row" style="margin-top:1.1rem">
+          <a class="btn primary" href="https://wa.me/9136522373" target="_blank" rel="noopener">Chat on WhatsApp</a>
+          <a class="btn ghost" href="#programs">See Programs</a>
+        </div>
+        <div class="row hint" style="margin-top:.8rem">
+          <span>💬 24×7 chat support</span>•<span>📅 Weekly check‑ins</span>•<span>🥗 Vegetarian‑friendly plans</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <b>Why IgnixFit?</b>
+        <div class="divider"></div>
+        <ul class="hint">
+          <li>Customized workouts (home or gym)</li>
+          <li>Simple, affordable nutrition—soya, tofu, paneer focused</li>
+          <li>Goal‑based programming: fat loss, lean muscle, performance</li>
+          <li>Weekly video call option</li>
+        </ul>
+        <div class="stats">
+          <div class="stat"><b>12+</b><span class="hint">Week roadmaps</span></div>
+          <div class="stat"><b>100%</b><span class="hint">Personalized</span></div>
+          <div class="stat"><b>₹0</b><span class="hint">Hidden costs</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container">
+      <h3 class="section-title">About IgnixFit</h3>
+      <p class="muted">Born from a real transformation journey, IgnixFit focuses on practical habits, clean programming, and vegetarian‑friendly nutrition. We keep things simple and measurable so you gain strength, drop fat, and feel confident.</p>
+      <div class="divider"></div>
+      <div class="grid cols-2">
+        <div class="card">
+          <h4>Our Approach</h4>
+          <ul class="muted">
+            <li>Assessment → clear goals → 12‑week roadmap</li>
+            <li>Progressive overload + mobility & recovery</li>
+            <li>Affordable, local whole‑food nutrition</li>
+            <li>Weekly accountability + chat support</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Who It’s For</h4>
+          <ul class="muted">
+            <li>Beginners returning to fitness</li>
+            <li>Busy students & professionals</li>
+            <li>Vegetarians seeking high‑protein plans</li>
+            <li>Anyone wanting sustainable results</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programs -->
+  <section id="programs">
+    <div class="container">
+      <h3 class="section-title">Programs</h3>
+      <p class="muted">Pick a starting point. We’ll tailor every plan to your equipment, schedule, and diet.</p>
+      <div class="grid cols-3" style="margin-top:1rem">
+        <div class="card">
+          <div class="pill">Beginner • 12 weeks</div>
+          <h4>Foundation Builder</h4>
+          <p class="muted">Full‑body or upper/lower split with habit tracking and mobility basics.</p>
+          <ul class="muted">
+            <li>3–4 days/week</li>
+            <li>Home or gym options</li>
+            <li>Form videos & cues</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="pill">Intermediate</div>
+          <h4>Hybrid Push‑Pull‑Legs</h4>
+          <p class="muted">Strength + hypertrophy with planned deloads and progress charts.</p>
+          <ul class="muted">
+            <li>4–6 days/week</li>
+            <li>Personalized accessories</li>
+            <li>Weekly progression checks</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="pill">Goal‑based</div>
+          <h4>Cut / Recomp / Bulk</h4>
+          <p class="muted">Macro guidance, high‑protein veg recipes, and cardio periodization.</p>
+          <ul class="muted">
+            <li>Custom calories & macros</li>
+            <li>Shopping list + meal ideas</li>
+            <li>Optional weekly calls</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing">
+    <div class="container">
+      <h3 class="section-title">Pricing</h3>
+      <p class="muted">Transparent and flexible. Start small or go all‑in—no hidden fees.</p>
+      <div class="grid cols-3" style="margin-top:1rem">
+        <div class="card">
+          <div class="pill">Self‑guided</div>
+          <h4>12‑Week Plan</h4>
+          <p class="price">₹2,499</p>
+          <ul class="muted">
+            <li>Customized PDF plan</li>
+            <li>Exercise library links</li>
+            <li>Email support</li>
+          </ul>
+          <a class="btn ghost" href="#contact">Get Plan</a>
+        </div>
+        <div class="card" style="outline:2px solid rgba(34,197,94,.35)">
+          <div class="pill">Most Popular</div>
+          <h4>Coaching (Monthly)</h4>
+          <p class="price">₹3,999</p>
+          <ul class="muted">
+            <li>Weekly check‑ins</li>
+            <li>Chat support 24×7</li>
+            <li>Plan updates as needed</li>
+          </ul>
+          <a class="btn primary" href="https://wa.me/9136522373" target="_blank" rel="noopener">Start Coaching</a>
+        </div>
+        <div class="card">
+          <div class="pill">1:1</div>
+          <h4>Consultation (30 min)</h4>
+          <p class="price">₹799</p>
+          <ul class="muted">
+            <li>Goal & habit assessment</li>
+            <li>Action roadmap</li>
+            <li>Supplement guidance</li>
+          </ul>
+          <a class="btn ghost" href="#contact">Book Call</a>
+        </div>
+      </div>
+      <p class="hint" style="margin-top:.8rem">Note: Prices are examples—edit them as you like.</p>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials">
+    <div class="container">
+      <h3 class="section-title">Results that stick</h3>
+      <div class="grid cols-3" style="margin-top:1rem">
+        <div class="card"><p>“Simple cues, big results. I finally understood what to do each week.”</p><p class="hint">— A. Shah</p></div>
+        <div class="card"><p>“Vegetarian plans that actually hit protein—game changer for me.”</p><p class="hint">— R. Mehta</p></div>
+        <div class="card"><p>“Lost fat, gained confidence. Weekly check‑ins kept me honest.”</p><p class="hint">— P. Nair</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <h3 class="section-title">FAQs</h3>
+      <details>
+        <summary>Is this beginner‑friendly?</summary>
+        <p class="muted">Yes. We start with an assessment and build your 12‑week roadmap around your current level.</p>
+      </details>
+      <details>
+        <summary>Do I need a gym?</summary>
+        <p class="muted">No. You can train at home with bands/dumbbells or at a gym—your plan adapts.</p>
+      </details>
+      <details>
+        <summary>What about vegetarian protein?</summary>
+        <p class="muted">We build your plan using paneer, tofu, soya, dals, curd, and easy snacks to hit targets.</p>
+      </details>
+      <details>
+        <summary>Refund policy?</summary>
+        <p class="muted">Coaching is month‑to‑month. You can cancel anytime before the next billing cycle.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container">
+      <h3 class="section-title">Contact</h3>
+      <p class="muted">Prefer WhatsApp? Click the green button. Or leave a message—we’ll reply within 24 hours.</p>
+      <div class="grid cols-2" style="margin-top:1rem">
+        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="card">
+          <input type="hidden" name="form-name" value="contact" />
+          <p class="sr-only"><label>Don’t fill this out if you’re human: <input name="bot-field" /></label></p>
+          <label>Name<br><input required name="name" placeholder="Your name" style="width:100%"></label><br>
+          <label>Email<br><input required type="email" name="email" placeholder="you@example.com" style="width:100%"></label><br>
+          <label>Phone (optional)<br><input name="phone" placeholder="90xxxxxx23" style="width:100%"></label><br>
+          <label>Message<br><textarea required name="message" rows="4" placeholder="Tell us your goals…" style="width:100%"></textarea></label><br>
+          <button class="btn primary" type="submit">Send Message</button>
+          <p class="hint">Form powered by Netlify. If you deploy elsewhere, plug in Formspree.</p>
+        </form>
+        <div class="card">
+          <h4>Other ways</h4>
+          <p class="muted">WhatsApp and email are fastest.</p>
+          <div class="row">
+            <a class="btn" style="background:var(--accent-2);color:#03210f" href="https://wa.me/9136522373" target="_blank" rel="noopener">WhatsApp Now</a>
+            <a class="btn ghost" href="mailto:prajapatikrishna011@gmail.com">Email Us</a>
+          </div>
+          <div class="divider"></div>
+          <p class="hint">Mumbai, India • Online coaching available worldwide</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container row" style="justify-content:space-between">
+      <span>© <span id="year"></span> IgnixFit. All rights reserved.</span>
+      <span class="hint"><a href="#">Privacy</a> • <a href="#">Terms</a></span>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const btn = document.querySelector('.menu-btn');
+    const menu = document.getElementById('menu');
+    btn?.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+    });
+    // Smooth anchor scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href');
+        const el = document.querySelector(id);
+        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+      })
+    })
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
